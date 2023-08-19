@@ -1,12 +1,18 @@
-import React from 'react'
-import Login from './components/Login'
+import React from "react";
+import Login from "./components/Login";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Question from "./components/Question";
 
 const App = () => {
   return (
-    <>
-    <Login />
-    </>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/question" element={<Question />} />
+        
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;

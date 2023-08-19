@@ -18,6 +18,8 @@ builder.Services.AddDbContext<QuizDbContext>(options => {
 
 var app = builder.Build();
 
+app.UseCors(Options => Options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyHeader());
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

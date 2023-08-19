@@ -12,8 +12,6 @@ const useForm = (getFreshModelObject) => {
             ...values,
             [name] : value
         })
-
-
     }
 
   return {

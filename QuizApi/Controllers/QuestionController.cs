@@ -1,6 +1,9 @@
+using System.Xml.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuizApi.model;
+using System.IO.Compression;
 
 namespace QuizApi.Controllers;
 
@@ -17,6 +20,15 @@ public class QuestionController : ControllerBase {
 
      [HttpGet]
      public async Task<ActionResult<List<Question>>> GetQuestions(){
-        return Ok(await _context.Questions.ToListAsync());
+        var randQuestions = await _context.Questions
+        .Select(x => new {
+            QId = x.QId,
+            QnInWord = x.QnInWord,
+            ImgName = x.ImgName,
+            Options = new String[] {x.option1 , x.option2, x.option3, x.option4}
+        }).OrderBy(y => Guid.NewGuid())
+        .Take(5).ToListAsync();
+
+        return Ok(randQuestions);
      }   
 }
