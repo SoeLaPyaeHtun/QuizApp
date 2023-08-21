@@ -1,7 +1,7 @@
 global using QuizApi.data;
+using System.Net.NetworkInformation;
 using Microsoft.EntityFrameworkCore;
-
-
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddDbContext<QuizDbContext>(options => {
 
 var app = builder.Build();
 
-app.UseCors(Options => Options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyHeader());
+app.UseCors(Options => Options.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyHeader().WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS"));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -26,6 +26,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.UseStaticFiles(new StaticFileOptions{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "images")
+    ),
+    RequestPath = "/images"
+});
 
 app.UseHttpsRedirection();
 

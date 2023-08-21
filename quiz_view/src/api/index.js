@@ -4,7 +4,8 @@ export const BASE_URL = "http://localhost:5095/";
 
 export const END_POINT = {
     participant : 'participant',
-    question : 'question'
+    question : 'question',
+    getanswer : 'question/GetAnswer'
 }
 
 export const createAPIendpoint = endpoint => {
@@ -14,7 +15,7 @@ export const createAPIendpoint = endpoint => {
         fetch : () => axios.get(url),
         fetchbyid : id => axios.get(url + id),
         post : newrecord => axios.post(url, newrecord),
-        put : (id , updatedrecord) => axios.put(url + id , updatedrecord),
+        put : (updatedrecord) => axios.put(url , updatedrecord),
         delete : id => axios.delete(url + id)
     }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import useForm from "../hooks/useForm";
 import { END_POINT, createAPIendpoint } from "../api";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
-  const { context , setContext } = useStateContext();
+  const { context , setContext , resetContext } = useStateContext();
   
 
   const getFrestModel = () => ({
@@ -23,6 +23,11 @@ const {
   SetError,
   handleInput
 } = useForm(getFrestModel);
+
+
+useEffect(() => {
+  resetContext();
+},[])
 
 const navigate = useNavigate();
 

@@ -42,4 +42,23 @@ public class ParticipantController : ControllerBase
         return Ok(participant);
     }
 
+    [HttpPut]
+    public async Task<ActionResult<Participant>> updateSocre(Participant updated_p ){
+        Participant old = _context.Participants.Find(updated_p.ParticipantId);
+
+        if(old == null){
+            return BadRequest("data not found");
+        }
+
+        old.timeTaken = updated_p.timeTaken;
+        old.Score = updated_p.Score;
+
+
+        await _context.SaveChangesAsync();
+        return Ok(old);
+
+
+
+    }
+
 }

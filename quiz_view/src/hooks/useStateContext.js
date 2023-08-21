@@ -14,13 +14,17 @@ const getFreshContext = () => {
 }
 
 export default function useStateContext(){
-    const { context , setContext } = useContext (stateContext);
+    const { context, setContext } = useContext(stateContext);
 
     return { 
         context,
         setContext: obj => { 
-            setContext({ ...context, ...obj }) }
-    }
+            setContext({ ...context, ...obj }) },
+        resetContext : ()=> {
+            localStorage.removeItem('context');
+            setContext(getFreshContext())
+        }
+    };
 }
 
 export function ContextProvider({children}){
